@@ -161,7 +161,12 @@ int getByte(int x, int n) {
  *   Rating: 3 
  */
 int logicalShift(int x, int n) {
-  return 2;
+  int upperSign = (1 << 31) & ~(!n << 31 >> 31);
+  int arithShift = x >> n;
+  int upperSignShiftLen = n + ~0;
+  int upperSignFinal = upperSign & arithShift;
+  int upperSignFinalShift = upperSignFinal >> upperSignShiftLen;
+  return upperSignFinalShift ^ arithShift;
 }
 /*
  * bitCount - returns count of number of 1's in word
@@ -233,7 +238,8 @@ int negate(int x) {
  *   Rating: 3
  */
 int isPositive(int x) {
-  return 2;
+  int sign = x >> 31;
+  return !sign & !!x;
 }
 /* 
  * isLessOrEqual - if x <= y  then return 1, else return 0 
