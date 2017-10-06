@@ -186,7 +186,10 @@ int bitCount(int x) {
  *   Rating: 4 
  */
 int bang(int x) {
-  return 2;
+  int a = ~x + 1;
+  int b = x | a;
+  int c = b >> 31;
+  return c + 1;
 }
 /* 
  * tmin - return minimum two's complement integer 
@@ -207,7 +210,8 @@ int tmin(void) {
  *   Rating: 2
  */
 int fitsBits(int x, int n) {
-  return 2;
+  return !((x >> (n + ~0)) ^ (x >> 31));
+
 }
 /* 
  * divpwr2 - Compute x/(2^n), for 0 <= n <= 30
@@ -218,7 +222,7 @@ int fitsBits(int x, int n) {
  *   Rating: 2
  */
 int divpwr2(int x, int n) {
-    return 2;
+  return 2;
 }
 /* 
  * negate - return -x 
